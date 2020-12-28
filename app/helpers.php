@@ -9,8 +9,9 @@ if (!function_exists('validate_base64')) {
      * @param array $allowedMime example ['png', 'jpg', 'jpeg']
      * @return bool
      */
-    function validate_base64($base64data, array $allowedMime) {
-        if(empty($base64data)) {
+    function validate_base64($base64data, array $allowedMime)
+    {
+        if (empty($base64data)) {
             return false;
         }
 
@@ -55,13 +56,14 @@ if (!function_exists('validate_base64')) {
 }
 
 if (!function_exists('valiarray_flattendate_base64')) {
-/**
- * Convert a multi-dimensional array into a single-dimensional array.
- * @author Sean Cannon, LitmusBox.com | seanc@litmusbox.com
- * @param  array $array The multi-dimensional array.
- * @return array
- */
-    function array_flatten($array) {
+    /**
+     * Convert a multi-dimensional array into a single-dimensional array.
+     * @author Sean Cannon, LitmusBox.com | seanc@litmusbox.com
+     * @param  array $array The multi-dimensional array.
+     * @return array
+     */
+    function array_flatten($array)
+    {
         if (!is_array($array)) {
             return false;
         }

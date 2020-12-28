@@ -7,17 +7,19 @@ use App\Models\AdCampaignMedias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class AdCampaignController extends Controller {
+class AdCampaignController extends Controller
+{
     //
 
-    public function index() {
+    public function index()
+    {
         $adData = AdCampaign::all();
 
         return response()->json($adData);
     }
 
-    public function create(Request $request) {
-
+    public function create(Request $request)
+    {
         $inputData = $this->requestValidator($request);
 
         $ad = AdCampaign::create([
@@ -53,7 +55,8 @@ class AdCampaignController extends Controller {
         return response()->json($response, 200);
     }
 
-    public function get($id) {
+    public function get($id)
+    {
         $ad = AdCampaign::find($id);
         $adMedias = AdCampaignMedias::where('ad_campaign_id', $id)->get();
 
@@ -68,7 +71,7 @@ class AdCampaignController extends Controller {
             'banner_ids' => []
         ];
 
-        if(!empty($adMedias)) {
+        if (!empty($adMedias)) {
             foreach ($adMedias as $image) {
                 $result['banner_images'][] = url('/storage/' . $image->file_name);
                 $result['banner_ids'][] =  $image->id;
@@ -82,10 +85,10 @@ class AdCampaignController extends Controller {
         ];
 
         return response()->json($response);
-
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id)
+    {
         $inputData = $this->requestValidator($request, true);
 
         AdCampaign::find($inputData['id'])->update([
@@ -103,7 +106,6 @@ class AdCampaignController extends Controller {
         ];
 
         return response()->json($response);
-
     }
 
     /**
@@ -112,8 +114,8 @@ class AdCampaignController extends Controller {
      * @param string $img Base64 Image
      * @return array
      */
-    private function createImage(string $img): array{
-
+    private function createImage(string $img): array
+    {
         $imageName = uniqid() . '_' . date('Ymd') . '.png';
         $path = public_path('storage') . DIRECTORY_SEPARATOR . $imageName;
         $img = substr($img, strpos($img, ",") + 1);
@@ -121,11 +123,10 @@ class AdCampaignController extends Controller {
         file_put_contents($path, $imageFile);
 
         return [$imageName, 'image/png'];
-
     }
 
-    private function requestValidator(Request $request, $update = false): array {
-
+    private function requestValidator(Request $request, $update = false): array
+    {
         $rules = [
             'name' => 'required',
             'date_start' => 'required|date_format:Y-m-d',
@@ -134,15 +135,13 @@ class AdCampaignController extends Controller {
             'budget_daily' => 'required|numeric',
         ];
 
-        if($update) {
+        if ($update) {
             $rules['id'] = 'required|numeric|min:0|not_in:0';
         } else {
             $rules['banner_images'] = 'required|array';
             $rules['banner_images.*'] = 'base64_image';
-
         }
 
         return $request->validate($rules);
     }
-
 }
