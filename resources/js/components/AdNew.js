@@ -206,9 +206,14 @@ class AdNew extends Component {
                                 </div>
                             </div>
 
-                            <button className="btn btn-success btn-lg">
-                                Create
-                            </button>
+                            <div className="form-group row">
+                                <div className="col-sm-12">
+                                    <button className="btn btn-success btn-lg mr-2">
+                                        Create
+                                    </button>
+                                    <Link to='/' className="btn btn-warning btn-lg">Show List</Link>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
