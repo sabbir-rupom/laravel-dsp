@@ -1,0 +1,27 @@
+// Fonts
+@import url("https://fonts.googleapis.com/css?family=Nunito");
+
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "~bootstrap/scss/bootstrap";
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+}
+
+#media_preview_block {
+    width: 100%;
+    .photo-container {
+        margin-left: 1rem;
+        img.preview-banner {
+            width: 100px;
+            height: 100px;
+            margin: 1rem 1rem 0 0;
+        }
+
+    }
+}
